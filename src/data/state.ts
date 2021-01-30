@@ -6,6 +6,7 @@ export const initialState: AppState = {
   data: {
     schedule: { groups: [] } as any,
     sessions: [],
+    business: [],
     speakers: [],
     favorites: [],
     locations: [],

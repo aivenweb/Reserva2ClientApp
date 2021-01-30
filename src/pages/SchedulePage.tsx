@@ -13,11 +13,13 @@ import * as selectors from '../data/selectors';
 import { connect } from '../data/connect';
 import { setSearchText } from '../data/sessions/sessions.actions';
 import { Schedule } from '../models/Schedule';
+import { Business } from '../models/Business';
 
 interface OwnProps { }
 
 interface StateProps {
   schedule: Schedule;
+  business: Business[];
   favoritesSchedule: Schedule;
   mode: 'ios' | 'md'
 }
@@ -28,7 +30,8 @@ interface DispatchProps {
 
 type SchedulePageProps = OwnProps & StateProps & DispatchProps;
 
-const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesSchedule, schedule, setSearchText, mode }) => {
+const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesSchedule, schedule, business, setSearchText, mode }) => {
+  console.log(business)
   const [segment, setSegment] = useState<'all' | 'favorites'>('all');
   const [showSearchbar, setShowSearchbar] = useState<boolean>(false);
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -122,11 +125,13 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesSchedule, schedule
         />
 
         <SessionList
+          business={business}
           schedule={schedule}
           listType={segment}
           hide={segment === 'favorites'}
         />
         <SessionList
+          business={business}
           // schedule={schedule}
           schedule={favoritesSchedule}
           listType={segment}
@@ -155,6 +160,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesSchedule, schedule
 export default connect<OwnProps, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     schedule: selectors.getSearchedSchedule(state),
+    business: selectors.getSearchedBusiness(state),
     favoritesSchedule: selectors.getGroupedFavorites(state),
     mode: getConfig()!.get('mode')
   }),

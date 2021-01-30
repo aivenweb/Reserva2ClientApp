@@ -1,10 +1,12 @@
 import { Location } from '../../models/Location';
 import { Speaker } from '../../models/Speaker';
 import { Schedule, Session } from '../../models/Schedule';
+import { Business } from '../../models/Business';
 export interface ConfState {
   schedule: Schedule;
   sessions: Session[];
   speakers: Speaker[];
+  business: Business[];
   favorites: number[];
   locations: Location[];
   filteredTracks: string[];

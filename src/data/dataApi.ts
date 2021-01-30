@@ -2,6 +2,7 @@ import { Plugins } from '@capacitor/core';
 import { Schedule, Session } from '../models/Schedule';
 import { Speaker } from '../models/Speaker';
 import { Location } from '../models/Location';
+import { Business } from '../models/Business';
 
 const { Storage } = Plugins;
 
@@ -20,6 +21,7 @@ export const getConfData = async () => {
   const schedule = responseData.schedule[0] as Schedule;
   const sessions = parseSessions(schedule);
   const speakers = responseData.speakers as Speaker[];
+  const business = responseData.business as Business[];
   const locations = await response[1].json() as Location[];
   const allTracks = sessions
     .reduce((all, session) => all.concat(session.tracks), [] as string[])
@@ -31,6 +33,7 @@ export const getConfData = async () => {
     sessions,
     locations,
     speakers,
+    business,
     allTracks,
     filteredTracks: [...allTracks]
   }

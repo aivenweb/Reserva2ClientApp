@@ -11,6 +11,7 @@ const getSessions = (state: AppState) => state.data.sessions;
 const getFilteredTracks = (state: AppState) => state.data.filteredTracks;
 const getFavoriteIds = (state: AppState) => state.data.favorites;
 const getSearchText = (state: AppState) => state.data.searchText;
+const getBusiness = (state: AppState) => state.data.business;
 
 export const getFilteredSchedule = createSelector(
   getSchedule, getFilteredTracks,
@@ -66,6 +67,21 @@ export const getSearchedSchedule = createSelector(
   }
 )
 
+const getIdParam = (_state: AppState, props: any) => {
+  return props.match.params['id'];
+}
+
+export const getSearchedBusiness = createSelector(
+  getBusiness, getSearchText,
+  (business, searchText) => {
+    if (!searchText) {
+      return business;
+    }
+
+    return business.filter(b => b.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+  }
+)
+
 export const getScheduleList = createSelector(
   getSearchedSchedule,
   (schedule) => schedule
@@ -92,10 +108,6 @@ export const getGroupedFavorites = createSelector(
   }
 );
 
-
-const getIdParam = (_state: AppState, props: any) => {
-  return props.match.params['id'];
-}
 
 export const getSession = createSelector(
   getSessions, getIdParam,

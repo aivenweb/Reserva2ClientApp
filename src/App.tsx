@@ -36,6 +36,7 @@ import Tutorial from './pages/Tutorial';
 import HomeOrTutorial from './components/HomeOrTutorial';
 import { Schedule } from "./models/Schedule";
 import RedirectToLogin from './components/RedirectToLogin';
+import { Business } from './models/Business';
 
 const App: React.FC = () => {
   return (
@@ -48,6 +49,7 @@ const App: React.FC = () => {
 interface StateProps {
   darkMode: boolean;
   schedule: Schedule;
+  business: Business[];
 }
 
 interface DispatchProps {
@@ -106,7 +108,8 @@ export default App;
 const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     darkMode: state.user.darkMode,
-    schedule: state.data.schedule
+    schedule: state.data.schedule,
+    business: state.data.business
   }),
   mapDispatchToProps: { loadConfData, loadUserData, setIsLoggedIn, setUsername },
   component: IonicApp

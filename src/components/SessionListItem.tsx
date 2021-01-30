@@ -1,9 +1,12 @@
 import React, { useRef } from 'react';
-import { IonItemSliding, IonItem, IonLabel, IonItemOptions, IonItemOption, AlertButton } from '@ionic/react';
+import { IonItemSliding, IonItem, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCard, IonLabel, IonItemOptions, IonItemOption, AlertButton } from '@ionic/react';
 import { Session } from '../models/Schedule';
+import { pin, wifi, wine, warning, walk } from 'ionicons/icons';
+import { Business } from '../models/Business';
+
 
 interface SessionListItemProps {
-  session: Session;
+  business: Business;
   listType: "all" | "favorites";
   onAddFavorite: (id: number) => void;
   onRemoveFavorite: (id: number) => void;
@@ -11,7 +14,7 @@ interface SessionListItemProps {
   isFavorite: boolean;
 }
 
-const SessionListItem: React.FC<SessionListItemProps> = ({ isFavorite, onAddFavorite, onRemoveFavorite, onShowAlert, session, listType }) => {
+const SessionListItem: React.FC<SessionListItemProps> = ({ isFavorite, onAddFavorite, onRemoveFavorite, onShowAlert, business, listType }) => {
   const ionItemSlidingRef = useRef<HTMLIonItemSlidingElement>(null)
 
   const dismissAlert = () => {
@@ -19,7 +22,7 @@ const SessionListItem: React.FC<SessionListItemProps> = ({ isFavorite, onAddFavo
   }
 
   const removeFavoriteSession = () => {
-    onAddFavorite(session.id);
+    onAddFavorite(business.id);
     onShowAlert('Favorite already added', [
       {
         text: 'Cancel',
@@ -28,7 +31,7 @@ const SessionListItem: React.FC<SessionListItemProps> = ({ isFavorite, onAddFavo
       {
         text: 'Remove',
         handler: () => {
-          onRemoveFavorite(session.id);
+          onRemoveFavorite(business.id);
           dismissAlert();
         }
       }
@@ -42,7 +45,7 @@ const SessionListItem: React.FC<SessionListItemProps> = ({ isFavorite, onAddFavo
       removeFavoriteSession();
     } else {
       // remember this session as a user favorite
-      onAddFavorite(session.id);
+      onAddFavorite(business.id);
       onShowAlert('Favorite Added', [
         {
           text: 'OK',
@@ -53,29 +56,41 @@ const SessionListItem: React.FC<SessionListItemProps> = ({ isFavorite, onAddFavo
   };
 
   return (
-    <IonItemSliding ref={ionItemSlidingRef} class={'track-' + session.tracks[0].toLowerCase()}>
-      <IonItem routerLink={`/tabs/schedule/${session.id}`}>
-        <IonLabel>
-          <h3>{session.name}</h3>
-          <p>
-            {session.timeStart}&mdash;&nbsp;
-            {session.timeStart}&mdash;&nbsp;
-            {session.location}
-          </p>
-        </IonLabel>
-      </IonItem>
-      <IonItemOptions>
-        {listType === "favorites" ?
-          <IonItemOption color="danger" onClick={() => removeFavoriteSession()}>
-            Remove
+    <>
+      <IonCard>
+        <img src={business.image} />
+        <IonCardHeader>
+          <IonCardSubtitle>{business.categories[0]}</IonCardSubtitle>
+          <IonCardTitle>{business.name}</IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent>
+          {business.description}
+        </IonCardContent>
+      </IonCard>
+      {/* <IonItemSliding ref={ionItemSlidingRef} class={'track-' + business.categories[0].toLowerCase()}>
+        <IonItem routerLink={`/tabs/schedule/${business.id}`}>
+          <IonLabel>
+            <h3>{business.name}</h3>
+            <p>
+              {business.description}&mdash;&nbsp;
+            {business.categories}&mdash;&nbsp;
+            {business.id}
+            </p>
+          </IonLabel>
+        </IonItem>
+        <IonItemOptions>
+          {listType === "favorites" ?
+            <IonItemOption color="danger" onClick={() => removeFavoriteSession()}>
+              Remove
           </IonItemOption>
-          :
-          <IonItemOption color="favorite" onClick={addFavoriteSession}>
-            Favorite
+            :
+            <IonItemOption color="favorite" onClick={addFavoriteSession}>
+              Favorite
           </IonItemOption>
-        }
-      </IonItemOptions>
-    </IonItemSliding>
+          }
+        </IonItemOptions>
+      </IonItemSliding> */}
+    </>
   );
 };
 
