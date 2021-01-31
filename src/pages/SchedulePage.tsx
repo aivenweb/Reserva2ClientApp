@@ -15,6 +15,8 @@ import { setSearchText } from '../data/sessions/sessions.actions';
 import { Schedule } from '../models/Schedule';
 import { Business } from '../models/Business';
 
+import { Geolocation  } from '@ionic-native/geolocation';
+
 interface OwnProps { }
 
 interface StateProps {
@@ -48,6 +50,22 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesSchedule, schedule
       setShowCompleteToast(true);
     }, 2500)
   };
+
+  Geolocation.getCurrentPosition().then((resp) => {
+    // resp.coords.latitude
+    // resp.coords.longitude
+    console.log(resp)
+   }).catch((error) => {
+     console.log('Error getting location', error);
+   });
+   
+   let watch = Geolocation.watchPosition();
+   watch.subscribe((data) => {
+    // data can be a set of coordinates, or an error (if an error occurred).
+    // data.coords.latitude
+    // data.coords.longitude
+    console.log(data)
+   });
 
   return (
     <IonPage ref={pageRef} id="schedule-page">
