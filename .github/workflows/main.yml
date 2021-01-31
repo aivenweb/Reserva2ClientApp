@@ -44,10 +44,13 @@ jobs:
         run: ionic capacitor add android
 
       - name: Build Android Dev APK
-        run: ionic capacitor build android
+        run: ionic capacitor build android --no-open
 
       - name: Build Android Release APK
-        run: ionic capacitor build android --release --prod
+        run: ionic capacitor build android --release --prod --no-open
+
+      - name: Fix Default value Android Manifest
+        run: sed -i 's/$GPS_REQUIRED/true/' android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
 
       - name: Generate the Android App Bundle
         working-directory: ./android/
