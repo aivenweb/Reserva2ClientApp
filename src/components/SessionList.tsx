@@ -5,6 +5,7 @@ import SessionListItem from './SessionListItem';
 import { connect } from '../data/connect';
 import { addFavorite, removeFavorite } from '../data/sessions/sessions.actions';
 import { Business } from '../models/Business';
+import CategorySlideList from './CategorySlideList';
 
 interface OwnProps {
   schedule: Schedule;
@@ -49,6 +50,7 @@ const SessionList: React.FC<SessionListProps> = ({ addFavorite, removeFavorite, 
   return (
     <>
       <IonList style={hide ? { display: 'none' } : {}}>
+        <CategorySlideList />
         {/* {schedule.groups.map((group, index: number) => (
           <IonItemGroup key={`group-${index}`}>
             <IonItemDivider sticky>
@@ -71,6 +73,7 @@ const SessionList: React.FC<SessionListProps> = ({ addFavorite, removeFavorite, 
         ))} */}
         <IonGrid>
           <IonRow>
+
             {business.map(b => (
               <IonCol
                 size={"6"}
