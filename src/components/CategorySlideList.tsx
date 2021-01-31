@@ -1,4 +1,4 @@
-import { IonContent, IonSlides, IonSlide, IonLabel, IonImg, IonCol, IonIcon } from "@ionic/react";
+import { IonSlides, IonSlide, IonCol, IonIcon } from "@ionic/react";
 import { fastFoodSharp, cafeSharp, medkitSharp, pawSharp, cutSharp, carSportSharp, businessSharp } from 'ionicons/icons';
 import React from "react";
 import './CategorySlideList.scss';

@@ -73,12 +73,25 @@ const getIdParam = (_state: AppState, props: any) => {
 
 export const getSearchedBusiness = createSelector(
   getBusiness, getSearchText,
-  (business, searchText) => {
+  (businesses, searchText) => {
     if (!searchText) {
-      return business;
+      return businesses;
     }
 
-    return business.filter(b => b.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+    return businesses.filter(b => b.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
+  }
+)
+
+export const getFavoritesBusiness = createSelector(
+  getBusiness, getSearchText, getFavoriteIds,
+  (businesses, searchText, favoriteIds) => {
+
+    if (!searchText) {
+      return businesses.filter(b => favoriteIds.indexOf(b.id) > -1)
+    }
+
+    return businesses.filter(b => b.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 &&
+      favoriteIds.indexOf(b.id) > -1)
   }
 )
 
