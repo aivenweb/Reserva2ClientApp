@@ -12,7 +12,6 @@ import ShareSocialFab from '../components/ShareSocialFab';
 import * as selectors from '../data/selectors';
 import { connect } from '../data/connect';
 import { setSearchText } from '../data/sessions/sessions.actions';
-import { Schedule } from '../models/Schedule';
 import { Business } from '../models/Business';
 
 import { Geolocation  } from '@ionic-native/geolocation';
@@ -20,9 +19,8 @@ import { Geolocation  } from '@ionic-native/geolocation';
 interface OwnProps { }
 
 interface StateProps {
-  schedule: Schedule;
-  business: Business[];
-  favoritesSchedule: Schedule;
+  businesses: Business[];
+  favoritesBusinesses: Business[];
   mode: 'ios' | 'md'
 }
 
@@ -32,8 +30,8 @@ interface DispatchProps {
 
 type SchedulePageProps = OwnProps & StateProps & DispatchProps;
 
-const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesSchedule, schedule, business, setSearchText, mode }) => {
-  console.log(business)
+const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, businesses, setSearchText, mode }) => {
+
   const [segment, setSegment] = useState<'all' | 'favorites'>('all');
   const [showSearchbar, setShowSearchbar] = useState<boolean>(false);
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -143,15 +141,12 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesSchedule, schedule
         />
 
         <SessionList
-          business={business}
-          schedule={schedule}
+          businesses={businesses}
           listType={segment}
           hide={segment === 'favorites'}
         />
         <SessionList
-          business={business}
-          // schedule={schedule}
-          schedule={favoritesSchedule}
+          businesses={favoritesBusinesses}
           listType={segment}
           hide={segment === 'all'}
         />
@@ -177,9 +172,8 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesSchedule, schedule
 
 export default connect<OwnProps, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
-    schedule: selectors.getSearchedSchedule(state),
-    business: selectors.getSearchedBusiness(state),
-    favoritesSchedule: selectors.getGroupedFavorites(state),
+    businesses: selectors.getSearchedBusiness(state),
+    favoritesBusinesses: selectors.getFavoritesBusiness(state),
     mode: getConfig()!.get('mode')
   }),
   mapDispatchToProps: {

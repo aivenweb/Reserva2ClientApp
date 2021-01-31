@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
-import { IonItemSliding, IonItem, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCard, IonLabel, IonItemOptions, IonItemOption, AlertButton } from '@ionic/react';
-import { Session } from '../models/Schedule';
-import { pin, wifi, wine, warning, walk } from 'ionicons/icons';
+import { IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCard, AlertButton, IonIcon, IonGrid, IonRow } from '@ionic/react';
+import { heartOutline, heartSharp } from 'ionicons/icons';
 import { Business } from '../models/Business';
-
+import "./SessionListItem.scss"
 
 interface SessionListItemProps {
   business: Business;
@@ -58,38 +57,27 @@ const SessionListItem: React.FC<SessionListItemProps> = ({ isFavorite, onAddFavo
   return (
     <>
       <IonCard>
-        <img src={business.image} />
+        <img src={business.image} alt={`business-${business.id}`} />
         <IonCardHeader>
           <IonCardSubtitle>{business.categories[0]}</IonCardSubtitle>
           <IonCardTitle>{business.name}</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
-          {business.description}
+          <IonGrid>
+            <IonRow>
+              {business.description}
+            </IonRow>
+            <IonRow className="right">
+              {listType === "favorites" ?
+                <IonIcon size="large" icon={isFavorite ? heartSharp : heartOutline} onClick={() => removeFavoriteSession()} />
+                :
+                <IonIcon size="large" icon={isFavorite ? heartSharp : heartOutline} onClick={() => addFavoriteSession()} />
+              }
+            </IonRow>
+          </IonGrid>
         </IonCardContent>
       </IonCard>
-      {/* <IonItemSliding ref={ionItemSlidingRef} class={'track-' + business.categories[0].toLowerCase()}>
-        <IonItem routerLink={`/tabs/schedule/${business.id}`}>
-          <IonLabel>
-            <h3>{business.name}</h3>
-            <p>
-              {business.description}&mdash;&nbsp;
-            {business.categories}&mdash;&nbsp;
-            {business.id}
-            </p>
-          </IonLabel>
-        </IonItem>
-        <IonItemOptions>
-          {listType === "favorites" ?
-            <IonItemOption color="danger" onClick={() => removeFavoriteSession()}>
-              Remove
-          </IonItemOption>
-            :
-            <IonItemOption color="favorite" onClick={addFavoriteSession}>
-              Favorite
-          </IonItemOption>
-          }
-        </IonItemOptions>
-      </IonItemSliding> */}
+
     </>
   );
 };
