@@ -58,21 +58,21 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
     }, 2500)
   };
 
-  Geolocation.getCurrentPosition().then((resp) => {
-    // resp.coords.latitude
-    // resp.coords.longitude
-    console.log(resp)
-  }).catch((error) => {
-    console.log('Error getting location', error);
-  });
+  // Geolocation.getCurrentPosition().then((resp) => {
+  //   // resp.coords.latitude
+  //   // resp.coords.longitude
+  //   console.log(resp)
+  // }).catch((error) => {
+  //   console.log('Error getting location', error);
+  // });
 
-  let watch = Geolocation.watchPosition();
-  watch.subscribe((data) => {
-    // data can be a set of coordinates, or an error (if an error occurred).
-    // data.coords.latitude
-    // data.coords.longitude
-    console.log(data)
-  });
+  // let watch = Geolocation.watchPosition();
+  // watch.subscribe((data) => {
+  //   // data can be a set of coordinates, or an error (if an error occurred).
+  //   // data.coords.latitude
+  //   // data.coords.longitude
+  //   console.log(data)
+  // });
 
   const checkGPSPermission = () => {
     AndroidPermissions.checkPermission(AndroidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
