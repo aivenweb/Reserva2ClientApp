@@ -25,6 +25,9 @@ jobs:
 
       - name: Install Zipaling
         run: sudo apt-get update && sudo apt-get install zipalign
+
+      - name: Install ApkSigner
+        run: sudo apt-get install -y apksigner
         
       - name: Setup Node.js
         uses: actions/setup-node@v1
@@ -79,22 +82,24 @@ jobs:
           name: keystore
           path: '${{ env.JAVA_HOME }}/ejemplo.keystore'
       
-      - name: Jarsigner
-        working-directory: "${{ env.JAVA_HOME }}"
-        run: jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ejemplo.keystore -storepass "password" -keypass "password" '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' laucha && ls
-      
-      - name: Upload release signed apk
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-release
-          path: '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk'
+     # - name: Jarsigner
+     #   working-directory: "${{ env.JAVA_HOME }}"
+     #   run: jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ejemplo.keystore -storepass "password" -keypass "password" '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' laucha && ls
       
       - name: Zipalign 
-        run: zipalign -v 4 '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' ejemplo.apk && ls
+        run: zipalign -v 4 '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' app-release-opt.apk && ls
+     
+      - name: Apksigner Sign 
+        run: apksigner sign --ks '${{ env.JAVA_HOME }}/ejemplo.keystore' app-release-opt.apk --ks-key-alias laucha && ls
+
+
+      - name: Apksigner Verify 
+        run: apksigner verify app-release-opt.apk
+      
 
       - name: Upload release signed optimize apk
         uses: actions/upload-artifact@v1
         with:
           name: app-release-opt
-          path: ejemplo.apk
+          path: app-release-opt.apk
         
