@@ -55,8 +55,8 @@ jobs:
       - name: Build Android Release APK
         run: ionic capacitor build android --release --prod --no-open
 
-      - name: Fix Default value Android Manifest
-        run: sed -i 's/$GPS_REQUIRED/true/' android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+    #  - name: Fix Default value Android Manifest
+    #    run: sed -i 's/$GPS_REQUIRED/true/' android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
 
     #  - name: Generate the Android App Bundle
     #    working-directory: ./android/
@@ -86,7 +86,7 @@ jobs:
         run: zipalign -v -p 4 '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' app-release-opt.apk && ls
      
       - name: Apksigner Sign 
-        run: apksigner sign --ks '${{ env.JAVA_HOME }}/ejemplo.keystore' --ks-pass pass:password --key-pass pass:password --out app-release-opt.apk app-release-signed-opt.apk && ls
+        run: apksigner sign --ks '${{ env.JAVA_HOME }}/ejemplo.keystore' --ks-key-alias laucha --ks-pass pass:password --key-pass pass:password --out app-release-signed-opt.apk app-release-opt.apk --verbose && ls
 
 
       - name: Apksigner Verify 
