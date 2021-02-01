@@ -49,8 +49,8 @@ jobs:
       - name: Add Android platform
         run: ionic capacitor add android
 
-      - name: Build Android Dev APK
-        run: ionic capacitor build android --no-open
+    #  - name: Build Android Dev APK
+    #    run: ionic capacitor build android --no-open
 
       - name: Build Android Release APK
         run: ionic capacitor build android --release --prod --no-open
@@ -58,19 +58,19 @@ jobs:
       - name: Fix Default value Android Manifest
         run: sed -i 's/$GPS_REQUIRED/true/' android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
 
-      - name: Generate the Android App Bundle
-        working-directory: ./android/
-        run: ./gradlew assembleDebug
+    #  - name: Generate the Android App Bundle
+    #    working-directory: ./android/
+    #    run: ./gradlew assembleDebug
       
       - name: Generate the Android App Release
         working-directory: ./android/
         run: ./gradlew assembleRelease
 
-      - name: Upload dev APK
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-dev
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+    #  - name: Upload dev APK
+    #    uses: actions/upload-artifact@v1
+    #    with:
+    #      name: app-dev
+    #      path: android/app/build/outputs/apk/debug/app-debug.apk
 
       - name: KeyTool
         working-directory: "${{ env.JAVA_HOME }}"
@@ -82,24 +82,20 @@ jobs:
           name: keystore
           path: '${{ env.JAVA_HOME }}/ejemplo.keystore'
       
-     # - name: Jarsigner
-     #   working-directory: "${{ env.JAVA_HOME }}"
-     #   run: jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ejemplo.keystore -storepass "password" -keypass "password" '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' laucha && ls
-      
       - name: Zipalign 
         run: zipalign -v 4 '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' app-release-opt.apk && ls
      
       - name: Apksigner Sign 
-        run: apksigner sign --ks '${{ env.JAVA_HOME }}/ejemplo.keystore' --ks-key-alias laucha --ks-pass pass:password --key-pass pass:password app-release-opt.apk && ls
+        run: apksigner sign --ks '${{ env.JAVA_HOME }}/ejemplo.keystore' --ks-pass password --key-pass password --out app-release-opt.apk app-release-signed-opt.apk && ls
 
 
       - name: Apksigner Verify 
-        run: apksigner verify app-release-opt.apk
+        run: apksigner verify app-release-signed-opt.apk
       
 
       - name: Upload release signed optimize apk
         uses: actions/upload-artifact@v1
         with:
-          name: app-release-opt
-          path: app-release-opt.apk
+          name: app-release-signed-opt
+          path: app-release-signed-opt.apk
         
