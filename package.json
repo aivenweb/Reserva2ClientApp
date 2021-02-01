@@ -6,21 +6,21 @@
     "@capacitor/android": "^2.4.2",
     "@capacitor/core": "2.4.2",
     "@ionic-native/core": "^5.31.1",
-    "@ionic/react": "^5.3.1",
-    "@ionic/react-router": "^5.3.1",
+    "@ionic/react": "^5.5.3",
+    "@ionic/react-router": "^5.5.3",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.5",
-    "@types/react": "^16.9.43",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router": "^5.1.8",
-    "@types/react-router-dom": "^5.1.5",
-    "ionicons": "^5.0.1",
-    "node-sass": "^4.13.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "@types/react": "^16.14.2",
+    "@types/react-dom": "^16.9.10",
+    "@types/react-router": "^5.1.11",
+    "@types/react-router-dom": "^5.1.7",
+    "ionicons": "^5.4.0",
+    "node-sass": "^4.14.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^3.4.4",
     "reselect": "^4.0.0"
   },
   "scripts": {
@@ -41,8 +41,8 @@
   "description": "An Ionic project",
   "devDependencies": {
     "@capacitor/cli": "2.4.2",
-    "@testing-library/react": "^9.3.1",
-    "@types/googlemaps": "^3.38.0",
+    "@testing-library/react": "^9.5.0",
+    "@types/googlemaps": "^3.43.2",
     "typescript": "3.6.3"
   }
 }
