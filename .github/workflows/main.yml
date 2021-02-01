@@ -82,11 +82,11 @@ jobs:
           name: keystore
           path: '${{ env.JAVA_HOME }}/ejemplo.keystore'
       
-      - name: Zipalign 
-        run: zipalign -v 4 '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' app-release-opt.apk && ls
+      #- name: Zipalign 
+      #  run: zipalign -v 4 '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' app-release-opt.apk && ls
      
       - name: Apksigner Sign 
-        run: apksigner sign --ks '${{ env.JAVA_HOME }}/ejemplo.keystore' --ks-key-alias laucha --ks-pass pass:password --key-pass pass:password --out app-release-signed-opt.apk app-release-opt.apk && ls
+        run: apksigner sign --ks '${{ env.JAVA_HOME }}/ejemplo.keystore' --ks-key-alias laucha --ks-pass pass:password --key-pass pass:password --out app-release-signed-opt.apk app-release-unsigned.apk #app-release-opt.apk && ls
 
       - name: Apksigner Verify 
         run: apksigner verify --verbose app-release-signed-opt.apk
