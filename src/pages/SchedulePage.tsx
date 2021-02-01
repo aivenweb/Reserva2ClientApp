@@ -16,6 +16,9 @@ import { Business } from '../models/Business';
 
 import { Geolocation } from '@ionic-native/geolocation';
 
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
+
 interface OwnProps { }
 
 interface StateProps {
@@ -37,6 +40,12 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
   const [showFilterModal, setShowFilterModal] = useState(false);
   const ionRefresherRef = useRef<HTMLIonRefresherElement>(null);
   const [showCompleteToast, setShowCompleteToast] = useState(false);
+  const [locationCoords, setLocationCoords] = useState({
+    latitude: 0,
+    longitude: 0,
+    accuracy: 0,
+    timestamp: 0
+  });
 
   const pageRef = useRef<HTMLElement>(null);
 
@@ -49,22 +58,90 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
     }, 2500)
   };
 
-  Geolocation.getCurrentPosition().then((resp) => {
-    // resp.coords.latitude
-    // resp.coords.longitude
-    console.log(resp)
-  }).catch((error) => {
-    console.log('Error getting location', error);
-  });
+  // Geolocation.getCurrentPosition().then((resp) => {
+  //   // resp.coords.latitude
+  //   // resp.coords.longitude
+  //   console.log(resp)
+  // }).catch((error) => {
+  //   console.log('Error getting location', error);
+  // });
 
-  let watch = Geolocation.watchPosition();
-  watch.subscribe((data) => {
-    // data can be a set of coordinates, or an error (if an error occurred).
-    // data.coords.latitude
-    // data.coords.longitude
-    console.log(data)
-  });
+  // let watch = Geolocation.watchPosition();
+  // watch.subscribe((data) => {
+  //   // data can be a set of coordinates, or an error (if an error occurred).
+  //   // data.coords.latitude
+  //   // data.coords.longitude
+  //   console.log(data)
+  // });
 
+  const checkGPSPermission = () => {
+    AndroidPermissions.checkPermission(AndroidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
+      result => {
+        if (result.hasPermission) {
+
+          //If having permission show 'Turn On GPS' dialogue
+          askToTurnOnGPS();
+        } else {
+
+          //If not having permission ask for permission
+          requestGPSPermission();
+        }
+      },
+      err => {
+        alert(err);
+      }
+    );
+  }
+
+  const requestGPSPermission = () => {
+    LocationAccuracy.canRequest().then((canRequest: boolean) => {
+      if (canRequest) {
+        console.log("4");
+      } else {
+        //Show 'GPS Permission Request' dialogue
+        AndroidPermissions.requestPermission(AndroidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
+          .then(
+            () => {
+              // call method to turn on GPS
+              askToTurnOnGPS();
+            },
+            error => {
+              //Show alert if user click on 'No Thanks'
+              alert('requestPermission Error requesting location permissions ' + error)
+            }
+          );
+      }
+    });
+  }
+
+  const askToTurnOnGPS = () => {
+    LocationAccuracy.request(LocationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+      () => {
+        // When GPS Turned ON call method to get Accurate location coordinates
+        getLocationCoordinates()
+      },
+      error => alert('Error requesting location permissions ' + JSON.stringify(error))
+    );
+  }
+
+  const getLocationCoordinates = () => {
+    Geolocation.getCurrentPosition().then((resp) => {
+      let coords = {
+        latitude: resp.coords.latitude,
+        longitude: resp.coords.longitude,
+        accuracy: resp.coords.accuracy,
+        timestamp: resp.timestamp
+      };
+
+      setLocationCoords(coords)
+      console.log(locationCoords)
+
+
+    }).catch((error) => {
+      alert('Error getting location' + error);
+    });
+  }
+  checkGPSPermission();
   return (
     <IonPage ref={pageRef} id="schedule-page">
       <IonHeader translucent={true}>
@@ -139,7 +216,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
           duration={2000}
           onDidDismiss={() => setShowCompleteToast(false)}
         />
-
+        <IonTitle size="large">{`${locationCoords.latitude} - ${locationCoords.longitude} - ${locationCoords.accuracy} - ${locationCoords.timestamp} `}</IonTitle>
         <SessionList
           businesses={businesses}
           listType={segment}
