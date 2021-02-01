@@ -74,8 +74,7 @@ jobs:
 
       - name: KeyTool
         working-directory: "${{ env.JAVA_HOME }}"
-        #run: keytool -genkey -v -keystore ejemplo.keystore -alias laucha -keyalg RSA -keysize 2048 -validity 10000 -storepass password -keypass password -dname "CN=Lautaro Carro, OU=LauchaTech, O=LauchaTech, L=CABA, S=BuenosAires, C=AR" && ls
-        run: keytool -genkey -v -keystore ejemplo.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000        
+        run: keytool -genkey -v -keystore ejemplo.keystore -alias laucha -keyalg RSA -keysize 2048 -validity 10000 -storepass password -keypass password -dname "CN=Lautaro Carro, OU=LauchaTech, O=LauchaTech, L=CABA, S=BuenosAires, C=AR" && ls
 
       - name: Upload firma
         uses: actions/upload-artifact@v1
