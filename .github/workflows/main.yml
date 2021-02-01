@@ -74,8 +74,9 @@ jobs:
 
       - name: KeyTool
         working-directory: "${{ env.JAVA_HOME }}"
-        run: keytool -genkey -v -keystore ejemplo.keystore -alias laucha -keyalg RSA -keysize 2048 -validity 10000 -storepass password -keypass password -dname "CN=Lautaro Carro, OU=LauchaTech, O=LauchaTech, L=CABA, S=BuenosAires, C=AR" && ls
-      
+        #run: keytool -genkey -v -keystore ejemplo.keystore -alias laucha -keyalg RSA -keysize 2048 -validity 10000 -storepass password -keypass password -dname "CN=Lautaro Carro, OU=LauchaTech, O=LauchaTech, L=CABA, S=BuenosAires, C=AR" && ls
+        run: keytool -genkey -v -keystore ejemplo.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000        
+
       - name: Upload firma
         uses: actions/upload-artifact@v1
         with:
@@ -83,14 +84,14 @@ jobs:
           path: '${{ env.JAVA_HOME }}/ejemplo.keystore'
       
       - name: Zipalign 
-        run: zipalign -v -p 4 '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' app-release-opt.apk && ls
+        run: zipalign -v 4 '/home/runner/work/Reserva2ClientApp/Reserva2ClientApp/android/app/build/outputs/apk/release/app-release-unsigned.apk' app-release-opt.apk && ls
      
       - name: Apksigner Sign 
-        run: apksigner sign --ks '${{ env.JAVA_HOME }}/ejemplo.keystore' --ks-key-alias laucha --ks-pass pass:password --key-pass pass:password --out app-release-signed-opt.apk app-release-opt.apk && ls
-
+        #run: apksigner sign --ks '${{ env.JAVA_HOME }}/ejemplo.keystore' --ks-key-alias laucha --ks-pass pass:password --key-pass pass:password --out app-release-signed-opt.apk app-release-opt.apk && ls
+        run: apksigner sign --ks '${{ env.JAVA_HOME }}/ejemplo.keystore' --out app-release-signed-opt.apk app-release-opt.apk && ls
 
       - name: Apksigner Verify 
-        run: apksigner verify app-release-signed-opt.apk
+        run: apksigner verify --verbose app-release-signed-opt.apk
       
 
       - name: Upload release signed optimize apk
