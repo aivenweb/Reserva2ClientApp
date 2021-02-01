@@ -1,8 +1,7 @@
 {
-  "name": "ionic-react-conference-app",
+  "name": "Reserva2 - Pide un Turno",
   "integrations": {
     "capacitor": {}
   },
-  "type": "react",
-  "id": "5be3be7a"
+  "type": "react"
 }

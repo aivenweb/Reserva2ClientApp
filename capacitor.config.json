@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "ionic-react-conference-app",
+  "appId": "com.aiven.reserva2client",
+  "appName": "Reservados - Pide un Turno",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
