@@ -17,36 +17,43 @@ const CategorySlideList: React.FC = () => {
             <IonSlide className="slide-category">
                 <IonCol>
                     <IonIcon size="large" icon={businessSharp} />
+                    <p>Hoteles</p>
                 </IonCol>
             </IonSlide>
             <IonSlide className="slide-category">
                 <IonCol>
                     <IonIcon size="large" icon={cafeSharp} />
+                    <p>Bar</p>
                 </IonCol>
             </IonSlide>
             <IonSlide className="slide-category">
                 <IonCol>
                     <IonIcon size="large" icon={medkitSharp} />
+                    <p>Doctores</p>
                 </IonCol>
             </IonSlide>
             <IonSlide className="slide-category">
                 <IonCol>
                     <IonIcon size="large" icon={pawSharp} />
+                    <p>Veterinarias</p>
                 </IonCol>
             </IonSlide>
             <IonSlide className="slide-category">
                 <IonCol>
                     <IonIcon size="large" icon={fastFoodSharp} />
+                    <p>Comidas</p>
                 </IonCol>
             </IonSlide>
             <IonSlide className="slide-category">
                 <IonCol>
                     <IonIcon size="large" icon={cutSharp} />
+                    <p>Peluquerias</p>
                 </IonCol>
             </IonSlide>
             <IonSlide className="slide-category">
                 <IonCol>
                     <IonIcon size="large" icon={carSportSharp} />
+                    <p>Chofer</p>
                 </IonCol>
             </IonSlide>
 
