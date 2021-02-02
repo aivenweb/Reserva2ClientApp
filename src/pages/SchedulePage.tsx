@@ -58,22 +58,6 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
     }, 2500)
   };
 
-  // Geolocation.getCurrentPosition().then((resp) => {
-  //   // resp.coords.latitude
-  //   // resp.coords.longitude
-  //   console.log(resp)
-  // }).catch((error) => {
-  //   console.log('Error getting location', error);
-  // });
-
-  // let watch = Geolocation.watchPosition();
-  // watch.subscribe((data) => {
-  //   // data can be a set of coordinates, or an error (if an error occurred).
-  //   // data.coords.latitude
-  //   // data.coords.longitude
-  //   console.log(data)
-  // });
-
   const checkGPSPermission = () => {
     AndroidPermissions.checkPermission(AndroidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
       result => {
@@ -143,7 +127,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
   }
   checkGPSPermission();
   return (
-    <IonPage ref={pageRef} id="schedule-page">
+    <IonPage ref={pageRef} id="home-page">
       <IonHeader translucent={true}>
         <IonToolbar>
           {!showSearchbar &&
@@ -162,7 +146,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
             </IonSegment>
           }
           {!ios && !showSearchbar &&
-            <IonTitle>Schedule</IonTitle>
+            <IonTitle>Home</IonTitle>
           }
           {showSearchbar &&
             <IonSearchbar showCancelButton="always" placeholder="Search" onIonChange={(e: CustomEvent) => setSearchText(e.detail.value)} onIonCancel={() => setShowSearchbar(false)}></IonSearchbar>
@@ -199,7 +183,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
       <IonContent fullscreen={true}>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Schedule</IonTitle>
+            <IonTitle size="large">Home</IonTitle>
           </IonToolbar>
           <IonToolbar>
             <IonSearchbar placeholder="Search" onIonChange={(e: CustomEvent) => setSearchText(e.detail.value)}></IonSearchbar>
