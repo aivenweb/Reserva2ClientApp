@@ -146,7 +146,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
             </IonSegment>
           }
           {!ios && !showSearchbar &&
-            <IonTitle>Home</IonTitle>
+            <IonTitle>Reserva2</IonTitle>
           }
           {showSearchbar &&
             <IonSearchbar showCancelButton="always" placeholder="Search" onIonChange={(e: CustomEvent) => setSearchText(e.detail.value)} onIonCancel={() => setShowSearchbar(false)}></IonSearchbar>
@@ -183,7 +183,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
       <IonContent fullscreen={true}>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Home</IonTitle>
+            <IonTitle size="large">Reserva2</IonTitle>
           </IonToolbar>
           <IonToolbar>
             <IonSearchbar placeholder="Search" onIonChange={(e: CustomEvent) => setSearchText(e.detail.value)}></IonSearchbar>
