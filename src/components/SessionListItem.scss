@@ -1,3 +1,14 @@
 .right {
     justify-content: flex-end;
 }
+
+.text-left {
+    text-align: left;
+}
+
+.card-img {
+    width: 300px !important;
+    height: 150px !important;
+    object-fit: cover;
+}
+

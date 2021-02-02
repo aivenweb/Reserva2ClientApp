@@ -1,10 +1,11 @@
-import { IonGrid, IonCol, IonRow,  IonList, IonListHeader, IonAlert, AlertButton } from '@ionic/react';
-import React, { useState, useCallback } from 'react';
-import SessionListItem from './SessionListItem';
+import { IonList, IonListHeader, IonTitle } from '@ionic/react';
+import React from 'react';
+
 import { connect } from '../data/connect';
 import { addFavorite, removeFavorite } from '../data/sessions/sessions.actions';
 import { Business } from '../models/Business';
 import CategorySlideList from './CategorySlideList';
+import BusinessSlideList from './BusinessSlideList';
 
 interface OwnProps {
   businesses: Business[];
@@ -23,17 +24,17 @@ interface DispatchProps {
 
 interface SessionListProps extends OwnProps, StateProps, DispatchProps { };
 
-const SessionList: React.FC<SessionListProps> = ({ addFavorite, removeFavorite, favoriteBusinesses, hide, businesses, listType }) => {
+const SessionList: React.FC<SessionListProps> = ({ hide, businesses }) => {
 
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertHeader, setAlertHeader] = useState('');
-  const [alertButtons, setAlertButtons] = useState<(AlertButton | string)[]>([]);
+  // const [showAlert, setShowAlert] = useState(false);
+  // const [alertHeader, setAlertHeader] = useState('');
+  // const [alertButtons, setAlertButtons] = useState<(AlertButton | string)[]>([]);
 
-  const handleShowAlert = useCallback((header: string, buttons: AlertButton[]) => {
-    setAlertHeader(header);
-    setAlertButtons(buttons);
-    setShowAlert(true);
-  }, []);
+  // const handleShowAlert = useCallback((header: string, buttons: AlertButton[]) => {
+  //   setAlertHeader(header);
+  //   setAlertButtons(buttons);
+  //   setShowAlert(true);
+  // }, []);
 
   if (businesses.length === 0 && !hide) {
     return (
@@ -49,7 +50,10 @@ const SessionList: React.FC<SessionListProps> = ({ addFavorite, removeFavorite, 
     <>
       <IonList style={hide ? { display: 'none' } : {}}>
         <CategorySlideList />
-        <IonGrid>
+                <IonTitle size="large">Destacados Cerca Tuyo</IonTitle>
+
+        <BusinessSlideList businesses={businesses} />
+        {/* <IonGrid>
           <IonRow>
 
             {businesses.map(business => (
@@ -69,14 +73,14 @@ const SessionList: React.FC<SessionListProps> = ({ addFavorite, removeFavorite, 
               </IonCol>
             ))}
           </IonRow>
-        </IonGrid>
+        </IonGrid> */}
       </IonList>
-      <IonAlert
+      {/* <IonAlert
         isOpen={showAlert}
         header={alertHeader}
         buttons={alertButtons}
         onDidDismiss={() => setShowAlert(false)}
-      ></IonAlert>
+      ></IonAlert> */}
     </>
   );
 };

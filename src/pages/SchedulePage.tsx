@@ -200,12 +200,13 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ businesses, setSearchText, 
           duration={2000}
           onDidDismiss={() => setShowCompleteToast(false)}
         />
-        {/* <IonTitle size="large">{`${locationCoords.latitude} - ${locationCoords.longitude} - ${locationCoords.accuracy} - ${locationCoords.timestamp} `}</IonTitle> */}
+        
         <SessionList
           businesses={businesses}
           listType={segment}
           hide={false}
         />
+
         {/* <SessionList
           businesses={favoritesBusinesses}
           listType={segment}
