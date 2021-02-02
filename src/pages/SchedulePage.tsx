@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-import { IonToolbar, IonContent, IonPage, IonButtons, IonTitle, IonMenuButton, IonSegment, IonSegmentButton, IonButton, IonIcon, IonSearchbar, IonRefresher, IonRefresherContent, IonToast, IonModal, IonHeader, getConfig } from '@ionic/react';
+import { IonToolbar, IonContent, IonPage, IonButtons, IonTitle, IonMenuButton, IonButton, IonIcon, IonSearchbar, IonRefresher, IonRefresherContent, IonToast, IonModal, IonHeader, getConfig } from '@ionic/react';
 import { options, search } from 'ionicons/icons';
 
 import SessionList from '../components/SessionList';
@@ -23,7 +23,6 @@ interface OwnProps { }
 
 interface StateProps {
   businesses: Business[];
-  favoritesBusinesses: Business[];
   mode: 'ios' | 'md'
 }
 
@@ -33,9 +32,10 @@ interface DispatchProps {
 
 type SchedulePageProps = OwnProps & StateProps & DispatchProps;
 
-const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, businesses, setSearchText, mode }) => {
+const SchedulePage: React.FC<SchedulePageProps> = ({ businesses, setSearchText, mode }) => {
 
-  const [segment, setSegment] = useState<'all' | 'favorites'>('all');
+  // const [segment, setSegment] = useState<'all' | 'favorites'>('all');
+  const segment = 'all';
   const [showSearchbar, setShowSearchbar] = useState<boolean>(false);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const ionRefresherRef = useRef<HTMLIonRefresherElement>(null);
@@ -135,7 +135,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
               <IonMenuButton />
             </IonButtons>
           }
-          {ios &&
+          {/* {ios &&
             <IonSegment value={segment} onIonChange={(e) => setSegment(e.detail.value as any)}>
               <IonSegmentButton value="all">
                 All
@@ -144,7 +144,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
                 Favorites
               </IonSegmentButton>
             </IonSegment>
-          }
+          } */}
           {!ios && !showSearchbar &&
             <IonTitle>Reserva2</IonTitle>
           }
@@ -166,7 +166,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
           </IonButtons>
         </IonToolbar>
 
-        {!ios &&
+        {/* {!ios &&
           <IonToolbar>
             <IonSegment value={segment} onIonChange={(e) => setSegment(e.detail.value as any)}>
               <IonSegmentButton value="all">
@@ -177,7 +177,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
               </IonSegmentButton>
             </IonSegment>
           </IonToolbar>
-        }
+        } */}
       </IonHeader>
 
       <IonContent fullscreen={true}>
@@ -200,17 +200,17 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
           duration={2000}
           onDidDismiss={() => setShowCompleteToast(false)}
         />
-        <IonTitle size="large">{`${locationCoords.latitude} - ${locationCoords.longitude} - ${locationCoords.accuracy} - ${locationCoords.timestamp} `}</IonTitle>
+        {/* <IonTitle size="large">{`${locationCoords.latitude} - ${locationCoords.longitude} - ${locationCoords.accuracy} - ${locationCoords.timestamp} `}</IonTitle> */}
         <SessionList
           businesses={businesses}
           listType={segment}
-          hide={segment === 'favorites'}
+          hide={false}
         />
-        <SessionList
+        {/* <SessionList
           businesses={favoritesBusinesses}
           listType={segment}
           hide={segment === 'all'}
-        />
+        /> */}
       </IonContent>
 
       <IonModal
@@ -234,7 +234,6 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ favoritesBusinesses, busine
 export default connect<OwnProps, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     businesses: selectors.getSearchedBusiness(state),
-    favoritesBusinesses: selectors.getFavoritesBusiness(state),
     mode: getConfig()!.get('mode')
   }),
   mapDispatchToProps: {
