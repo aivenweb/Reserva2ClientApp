@@ -20,16 +20,22 @@ interface MapViewProps extends OwnProps, StateProps, DispatchProps { };
 
 const MapView: React.FC<MapViewProps> = ({ locations }) => {
 
-  const [mapCenter, setMapCenter] = useState<Location>(locations[0])
+  const [mapCenter, setMapCenter] = useState<Location>({
+    id: 0,
+    name: "",
+    lat: 0,
+    lng: 0
+  })
 
   new GeolocationProvider().checkGeolationByPlatform(coordinate => {
-    let location : Location = {
+    let location: Location = {
       id: 5,
       name: "position",
       lat: coordinate.latitude,
       lng: coordinate.longitude
     }
-    setMapCenter(location)
+    if (mapCenter.id === 0)
+      setMapCenter(location)
   })
 
   return (
@@ -44,7 +50,9 @@ const MapView: React.FC<MapViewProps> = ({ locations }) => {
       </IonHeader>
 
       <IonContent class="map-page">
-        <Map locations={locations} mapCenter={mapCenter} />
+        {
+          mapCenter.id !== 0 && <Map locations={locations} mapCenter={mapCenter} />
+        }
       </IonContent>
     </IonPage>
   )
