@@ -7,7 +7,8 @@ const CategorySlideList: React.FC = () => {
     const slideOpts = {
         slidesPerView: 'auto',
         speed: 400,
-        pagination: false
+        pagination: false,
+        loop: true
     };
 
     return (

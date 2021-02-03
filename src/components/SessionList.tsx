@@ -50,7 +50,7 @@ const SessionList: React.FC<SessionListProps> = ({ hide, businesses }) => {
     <>
       <IonList style={hide ? { display: 'none' } : {}}>
         <CategorySlideList />
-                <IonTitle size="large">Destacados Cerca Tuyo</IonTitle>
+                <IonTitle size="large">Disponibles Cerca Tuyo</IonTitle>
 
         <BusinessSlideList businesses={businesses} />
         {/* <IonGrid>

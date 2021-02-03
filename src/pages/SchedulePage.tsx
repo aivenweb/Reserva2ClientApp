@@ -18,6 +18,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import { Capacitor } from '@capacitor/core';
 
 interface OwnProps { }
 
@@ -125,11 +126,18 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ businesses, setSearchText, 
       alert('Error getting location' + error);
     });
   }
-  checkGPSPermission();
+
+  if (Capacitor.getPlatform() === 'web') {
+    getLocationCoordinates();
+  }
+  else {
+    checkGPSPermission();
+  }
+
   return (
     <IonPage ref={pageRef} id="home-page">
       <IonHeader translucent={true}>
-        <IonToolbar>
+        <IonToolbar color="primary">
           {!showSearchbar &&
             <IonButtons slot="start">
               <IonMenuButton />
@@ -200,7 +208,7 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ businesses, setSearchText, 
           duration={2000}
           onDidDismiss={() => setShowCompleteToast(false)}
         />
-        
+
         <SessionList
           businesses={businesses}
           listType={segment}

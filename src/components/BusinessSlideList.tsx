@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"; import { IonSlides, IonSlide, IonCol, AlertButton } from "@ionic/react";
+import React, { useCallback } from "react"; import { IonSlides, IonSlide, AlertButton } from "@ionic/react";
 import { Business } from "../models/Business";
 import SessionListItem from "./SessionListItem";
 import { addFavorite, removeFavorite } from '../data/sessions/sessions.actions';
@@ -20,7 +20,8 @@ const BusinessSlideList: React.FC<BusinessSlideListProps> = ({ addFavorite, remo
     const slideOpts = {
         slidesPerView: 'auto',
         speed: 400,
-        pagination: false
+        pagination: false,
+        loop: true
     };
 
     const handleShowAlert = useCallback((header: string, buttons: AlertButton[]) => {
@@ -34,8 +35,8 @@ const BusinessSlideList: React.FC<BusinessSlideListProps> = ({ addFavorite, remo
             {
                 businesses.map(business => {
                     return (
-                        <IonSlide className="swiper-slide-business">
-                            <IonCol>
+                        <IonSlide key={business.id} className="swiper-slide-business">
+                        
                                 <SessionListItem
                                     onShowAlert={handleShowAlert}
                                     business={business}
@@ -43,9 +44,8 @@ const BusinessSlideList: React.FC<BusinessSlideListProps> = ({ addFavorite, remo
                                     isFavorite={false}
                                     onAddFavorite={addFavorite}
                                     onRemoveFavorite={removeFavorite}
-                                    key={business.id}
                                 />
-                            </IonCol>
+                        
                         </IonSlide>
 
                     )
