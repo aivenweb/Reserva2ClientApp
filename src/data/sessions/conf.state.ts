@@ -6,7 +6,7 @@ export interface ConfState {
   schedule: Schedule;
   sessions: Session[];
   speakers: Speaker[];
-  business: Business[];
+  businesses: Business[];
   favorites: number[];
   locations: Location[];
   filteredTracks: string[];

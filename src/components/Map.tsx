@@ -11,7 +11,6 @@ const Map: React.FC<MapProps> = ({ mapCenter, locations }) => {
   const map = useRef<google.maps.Map>();
 
   useEffect(() => {
-
     if (mapEle && mapEle.current) {
       map.current = new google.maps.Map(mapEle.current, {
         center: {
@@ -41,13 +40,27 @@ const Map: React.FC<MapProps> = ({ mapCenter, locations }) => {
         let marker = new google.maps.Marker({
           position: new google.maps.LatLng(markerData.lat, markerData.lng),
           map: map.current!,
-          title: markerData.name
+          title: markerData.name,
+          icon: {
+            url: 'assets/img/googlemapmarker.png', // image url
+            scaledSize: new google.maps.Size(50, 50), // scaled size
+          }
         });
 
         marker.addListener('click', () => {
           infoWindow.open(map.current!, marker);
         });
       });
+
+      new google.maps.Marker({
+        position: new google.maps.LatLng(mapCenter.lat, mapCenter.lng),
+        map: map.current!,
+        title: mapCenter.name,
+        icon: {
+          url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png' // image url
+        }
+      });
+
     }
 
   }, [mapCenter, locations]);

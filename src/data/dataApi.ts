@@ -21,7 +21,7 @@ export const getConfData = async () => {
   const schedule = responseData.schedule[0] as Schedule;
   const sessions = parseSessions(schedule);
   const speakers = responseData.speakers as Speaker[];
-  const business = responseData.business as Business[];
+  const businesses = responseData.businesses as Business[];
   const locations = await response[1].json() as Location[];
   const allTracks = sessions
     .reduce((all, session) => all.concat(session.tracks), [] as string[])
@@ -33,7 +33,7 @@ export const getConfData = async () => {
     sessions,
     locations,
     speakers,
-    business,
+    businesses,
     allTracks,
     filteredTracks: [...allTracks]
   }
