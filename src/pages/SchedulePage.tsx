@@ -14,11 +14,7 @@ import { connect } from '../data/connect';
 import { setSearchText } from '../data/sessions/sessions.actions';
 import { Business } from '../models/Business';
 
-import { Geolocation } from '@ionic-native/geolocation';
-
-import { AndroidPermissions } from '@ionic-native/android-permissions';
-import { LocationAccuracy } from '@ionic-native/location-accuracy';
-import { Capacitor } from '@capacitor/core';
+import { GeolocationProvider } from '../providers/geolocation.provider';
 
 interface OwnProps { }
 
@@ -41,12 +37,6 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ businesses, setSearchText, 
   const [showFilterModal, setShowFilterModal] = useState(false);
   const ionRefresherRef = useRef<HTMLIonRefresherElement>(null);
   const [showCompleteToast, setShowCompleteToast] = useState(false);
-  const [locationCoords, setLocationCoords] = useState({
-    latitude: 0,
-    longitude: 0,
-    accuracy: 0,
-    timestamp: 0
-  });
 
   const pageRef = useRef<HTMLElement>(null);
 
@@ -59,80 +49,9 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ businesses, setSearchText, 
     }, 2500)
   };
 
-  const checkGPSPermission = () => {
-    AndroidPermissions.checkPermission(AndroidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
-      result => {
-        if (result.hasPermission) {
-
-          //If having permission show 'Turn On GPS' dialogue
-          askToTurnOnGPS();
-        } else {
-
-          //If not having permission ask for permission
-          requestGPSPermission();
-        }
-      },
-      err => {
-        alert(err);
-      }
-    );
-  }
-
-  const requestGPSPermission = () => {
-    LocationAccuracy.canRequest().then((canRequest: boolean) => {
-      if (canRequest) {
-        console.log("4");
-      } else {
-        //Show 'GPS Permission Request' dialogue
-        AndroidPermissions.requestPermission(AndroidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
-          .then(
-            () => {
-              // call method to turn on GPS
-              askToTurnOnGPS();
-            },
-            error => {
-              //Show alert if user click on 'No Thanks'
-              alert('requestPermission Error requesting location permissions ' + error)
-            }
-          );
-      }
-    });
-  }
-
-  const askToTurnOnGPS = () => {
-    LocationAccuracy.request(LocationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
-      () => {
-        // When GPS Turned ON call method to get Accurate location coordinates
-        getLocationCoordinates()
-      },
-      error => alert('Error requesting location permissions ' + JSON.stringify(error))
-    );
-  }
-
-  const getLocationCoordinates = () => {
-    Geolocation.getCurrentPosition().then((resp) => {
-      let coords = {
-        latitude: resp.coords.latitude,
-        longitude: resp.coords.longitude,
-        accuracy: resp.coords.accuracy,
-        timestamp: resp.timestamp
-      };
-
-      setLocationCoords(coords)
-      console.log(locationCoords)
-
-
-    }).catch((error) => {
-      alert('Error getting location' + error);
-    });
-  }
-
-  if (Capacitor.getPlatform() === 'web') {
-    getLocationCoordinates();
-  }
-  else {
-    checkGPSPermission();
-  }
+  new GeolocationProvider().checkGeolationByPlatform(coordinate => {
+    console.log(coordinate)
+  })
 
   return (
     <IonPage ref={pageRef} id="home-page">
@@ -229,10 +148,10 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ businesses, setSearchText, 
         presentingElement={pageRef.current!}
         cssClass="session-list-filter"
       >
-        <SessionListFilter
+<SessionListFilter
           onDismissModal={() => setShowFilterModal(false)}
-        />
-      </IonModal>
+        />      
+        </IonModal>
 
       <ShareSocialFab />
 

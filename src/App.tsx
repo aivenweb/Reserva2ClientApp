@@ -49,7 +49,7 @@ const App: React.FC = () => {
 interface StateProps {
   darkMode: boolean;
   schedule: Schedule;
-  business: Business[];
+  businesses: Business[];
 }
 
 interface DispatchProps {
@@ -109,7 +109,7 @@ const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     darkMode: state.user.darkMode,
     schedule: state.data.schedule,
-    business: state.data.business
+    businesses: state.data.businesses
   }),
   mapDispatchToProps: { loadConfData, loadUserData, setIsLoggedIn, setUsername },
   component: IonicApp

@@ -11,7 +11,7 @@ const getSessions = (state: AppState) => state.data.sessions;
 const getFilteredTracks = (state: AppState) => state.data.filteredTracks;
 const getFavoriteIds = (state: AppState) => state.data.favorites;
 const getSearchText = (state: AppState) => state.data.searchText;
-const getBusiness = (state: AppState) => state.data.business;
+const getBusinesses = (state: AppState) => state.data.businesses;
 
 export const getFilteredSchedule = createSelector(
   getSchedule, getFilteredTracks,
@@ -72,7 +72,7 @@ const getIdParam = (_state: AppState, props: any) => {
 }
 
 export const getSearchedBusiness = createSelector(
-  getBusiness, getSearchText,
+  getBusinesses, getSearchText,
   (businesses, searchText) => {
     if (!searchText) {
       return businesses;
@@ -83,7 +83,7 @@ export const getSearchedBusiness = createSelector(
 )
 
 export const getFavoritesBusiness = createSelector(
-  getBusiness, getSearchText, getFavoriteIds,
+  getBusinesses, getSearchText, getFavoriteIds,
   (businesses, searchText, favoriteIds) => {
 
     if (!searchText) {
