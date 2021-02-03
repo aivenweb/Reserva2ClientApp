@@ -41,7 +41,7 @@ const MapView: React.FC<MapViewProps> = ({ locations }) => {
   return (
     <IonPage id="map-view">
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonButtons slot="start">
             <IonMenuButton></IonMenuButton>
           </IonButtons>

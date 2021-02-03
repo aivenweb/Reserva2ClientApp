@@ -5,7 +5,7 @@ import { options, search } from 'ionicons/icons';
 
 import SessionList from '../components/SessionList';
 import SessionListFilter from '../components/SessionListFilter';
-import './SchedulePage.scss'
+import './HomePage.scss'
 
 import ShareSocialFab from '../components/ShareSocialFab';
 
@@ -27,9 +27,9 @@ interface DispatchProps {
   setSearchText: typeof setSearchText;
 }
 
-type SchedulePageProps = OwnProps & StateProps & DispatchProps;
+type HomePageProps = OwnProps & StateProps & DispatchProps;
 
-const SchedulePage: React.FC<SchedulePageProps> = ({ businesses, setSearchText, mode }) => {
+const HomePage: React.FC<HomePageProps> = ({ businesses, setSearchText, mode }) => {
 
   // const [segment, setSegment] = useState<'all' | 'favorites'>('all');
   const segment = 'all';
@@ -167,5 +167,5 @@ export default connect<OwnProps, StateProps, DispatchProps>({
   mapDispatchToProps: {
     setSearchText
   },
-  component: React.memo(SchedulePage)
+  component: React.memo(HomePage)
 });
