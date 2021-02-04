@@ -6,6 +6,7 @@ import { addFavorite, removeFavorite } from '../data/sessions/sessions.actions';
 import { Business } from '../models/Business';
 import CategorySlideList from './CategorySlideList';
 import BusinessSlideList from './BusinessSlideList';
+import "./SessionList.scss"
 
 interface OwnProps {
   businesses: Business[];
@@ -49,10 +50,10 @@ const SessionList: React.FC<SessionListProps> = ({ hide, businesses }) => {
   return (
     <IonList style={hide ? { display: 'none' } : {}}>
       <CategorySlideList />
-
-      <IonTitle size="large">Disponibles Cerca Tuyo</IonTitle>
-      <BusinessSlideList businesses={businesses} />
-
+      <div className="business-section">
+        <IonTitle size="large">Disponibles Cerca Tuyo</IonTitle>
+        <BusinessSlideList businesses={businesses} />
+      </div>
     </IonList>
   );
 };
