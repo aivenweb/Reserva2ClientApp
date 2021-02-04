@@ -129,6 +129,13 @@ export const getSession = createSelector(
   }
 );
 
+export const getBusiness = createSelector(
+  getBusinesses, getIdParam,
+  (businesses, id) => {
+    return businesses.find(b => b.id === id);
+  }
+);
+
 export const getSpeaker = createSelector(
   getSpeakers, getIdParam,
   (speakers, id) => speakers.find(x => x.id === id)

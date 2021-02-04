@@ -1,4 +1,5 @@
-import React, { useCallback } from "react"; import { IonSlides, IonSlide, AlertButton } from "@ionic/react";
+import React, { useCallback } from "react"; 
+import { IonSlides, IonSlide, AlertButton } from "@ionic/react";
 import { Business } from "../models/Business";
 import SessionListItem from "./SessionListItem";
 import { addFavorite, removeFavorite } from '../data/sessions/sessions.actions';

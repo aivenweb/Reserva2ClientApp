@@ -6,6 +6,7 @@ import HomePage from './HomePage';
 import SpeakerList from './SpeakerList';
 import SpeakerDetail from './SpeakerDetail';
 import SessionDetail from './SessionDetail';
+import BusinessDetail from './BusinessDetail';
 import MapView from './MapView';
 import About from './About';
 
@@ -28,6 +29,7 @@ const MainTabs: React.FC<MainTabsProps> = () => {
         <Route path="/tabs/speakers/sessions/:id" component={SessionDetail} />
         <Route path="/tabs/map" render={() => <MapView />} exact={true} />
         <Route path="/tabs/about" render={() => <About />} exact={true} />
+        <Route path="/tabs/business/:id" component={BusinessDetail} />
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
         <IonTabButton tab="home" href="/tabs/home">

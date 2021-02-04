@@ -56,7 +56,7 @@ const SessionListItem: React.FC<SessionListItemProps> = ({ business }) => {
 
   return (
     <>
-      <IonCard>
+      <IonCard href={`/tabs/business/${business.id}`}>
         <img className="card-img" src={business.image} alt={`business-${business.id}`} />
         <IonCardHeader className="text-left">
           <IonCardSubtitle >{business.categories[0]}</IonCardSubtitle>

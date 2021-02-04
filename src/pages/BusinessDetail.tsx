@@ -1,17 +1,40 @@
 import React, { useState } from 'react';
-import { IonHeader, IonToolbar, IonContent, IonPage, IonButtons, IonMenuButton, IonButton, IonIcon, IonDatetime, IonSelectOption, IonList, IonItem, IonLabel, IonSelect, IonPopover } from '@ionic/react';
-import './About.scss';
+import { IonHeader, IonToolbar, IonContent, IonPage, IonButtons, IonButton, IonIcon, IonList, IonItem, IonLabel, IonDatetime, IonMenuButton, IonPopover, IonSelect, IonSelectOption } from '@ionic/react';
+import { connect } from '../data/connect';
+import { withRouter, RouteComponentProps } from 'react-router';
+import * as selectors from '../data/selectors';
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
+import './BusinessDetail.scss';
+import { addFavorite, removeFavorite } from '../data/sessions/sessions.actions';
+import { Business } from '../models/Business';
 import AboutPopover from '../components/AboutPopover';
 
-interface AboutProps { }
+interface OwnProps extends RouteComponentProps { };
 
-const About: React.FC<AboutProps> = () => {
+interface StateProps {
+  business?: Business;
+  favoriteSessions: number[],
+};
+
+interface DispatchProps {
+  addFavorite: typeof addFavorite;
+  removeFavorite: typeof removeFavorite;
+}
+
+type BusinessDetailProps = OwnProps & StateProps & DispatchProps;
+
+const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, favoriteSessions }) => {
+
+  
 
   const [showPopover, setShowPopover] = useState(false);
   const [popoverEvent, setPopoverEvent] = useState();
   const [location, setLocation] = useState<'madison' | 'austin' | 'chicago' | 'seattle'>('madison');
   const [conferenceDate, setConferenceDate] = useState('2047-05-17T00:00:00-05:00');
+
+  if (!business) {
+    return <div>Session not found</div>
+  }
 
   const selectOptions = {
     header: 'Select a Location'
@@ -21,6 +44,16 @@ const About: React.FC<AboutProps> = () => {
     setPopoverEvent(e.nativeEvent);
     setShowPopover(true);
   };
+
+  // const isFavorite = favoriteSessions.indexOf(business.id) > -1;
+  
+  // const toggleFavorite = () => { 
+  //   isFavorite ? removeFavorite(business.id) : addFavorite(business.id);
+  // };
+  // const shareSession = () => { };
+  // const sessionClick = (text: string) => { 
+  //   console.log(`Clicked ${text}`);
+  // };
 
   // momentjs would be a better way to do this https://momentjs.com/
   function displayDate(date: string, format: string) {
@@ -40,7 +73,7 @@ const About: React.FC<AboutProps> = () => {
   }
 
   return (
-    <IonPage id="about-page">
+    <IonPage id="business-detail-page">
       <IonContent>
         <IonHeader className="ion-no-border">
           <IonToolbar>
@@ -55,14 +88,15 @@ const About: React.FC<AboutProps> = () => {
           </IonToolbar>
         </IonHeader>
 
-        <div className="about-header">
+        <div className="business-detail-header">
           {/* Instead of loading an image each time the select changes, use opacity to transition them */}
-          <div className="about-image madison" style={{'opacity': location === 'madison' ? '1' : undefined}}></div>
+          {/* <div className="about-image madison" style={{'opacity': location === 'madison' ? '1' : undefined}}></div>
           <div className="about-image austin" style={{'opacity': location === 'austin' ? '1' : undefined}}></div>
           <div className="about-image chicago" style={{'opacity': location === 'chicago' ? '1' : undefined}}></div>
-          <div className="about-image seattle" style={{'opacity': location === 'seattle' ? '1' : undefined}}></div>
+          <div className="about-image seattle" style={{'opacity': location === 'seattle' ? '1' : undefined}}></div> */}
+          <img src={business.image} className="business-detail-image" alt={`Portada de ${business.name}`}/>
         </div>
-        <div className="about-info">
+        <div className="business-detail-info">
           <h3 className="ion-padding-top ion-padding-start">About</h3>
 
           <p className="ion-padding-start ion-padding-end">
@@ -131,4 +165,14 @@ const About: React.FC<AboutProps> = () => {
   );
 };
 
-export default React.memo(About);
+export default connect<OwnProps, StateProps, DispatchProps>({
+  mapStateToProps: (state, OwnProps) => ({
+    business: selectors.getBusiness(state, OwnProps),
+    favoriteSessions: state.data.favorites
+  }),
+  mapDispatchToProps: {
+    addFavorite,
+    removeFavorite
+  },
+  component: withRouter(BusinessDetail)
+})
