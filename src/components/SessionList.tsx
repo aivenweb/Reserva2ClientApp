@@ -47,41 +47,13 @@ const SessionList: React.FC<SessionListProps> = ({ hide, businesses }) => {
   }
 
   return (
-    <>
-      <IonList style={hide ? { display: 'none' } : {}}>
-        <CategorySlideList />
-                <IonTitle size="large">Disponibles Cerca Tuyo</IonTitle>
+    <IonList style={hide ? { display: 'none' } : {}}>
+      <CategorySlideList />
 
-        <BusinessSlideList businesses={businesses} />
-        {/* <IonGrid>
-          <IonRow>
+      <IonTitle size="large">Disponibles Cerca Tuyo</IonTitle>
+      <BusinessSlideList businesses={businesses} />
 
-            {businesses.map(business => (
-              <IonCol
-                size={"6"}
-                className="new-track"
-                key={business.name}>
-                <SessionListItem
-                  onShowAlert={handleShowAlert}
-                  isFavorite={favoriteBusinesses.indexOf(business.id) > -1}
-                  onAddFavorite={addFavorite}
-                  onRemoveFavorite={removeFavorite}
-                  key={business.id}
-                  business={business}
-                  listType={listType}
-                />
-              </IonCol>
-            ))}
-          </IonRow>
-        </IonGrid> */}
-      </IonList>
-      {/* <IonAlert
-        isOpen={showAlert}
-        header={alertHeader}
-        buttons={alertButtons}
-        onDidDismiss={() => setShowAlert(false)}
-      ></IonAlert> */}
-    </>
+    </IonList>
   );
 };
 
