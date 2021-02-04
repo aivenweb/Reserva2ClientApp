@@ -73,7 +73,7 @@ const HomePage: React.FC<HomePageProps> = ({ businesses, setSearchText, mode }) 
             </IonSegment>
           } */}
           {!ios && !showSearchbar &&
-            <IonTitle>Reserva2</IonTitle>
+            <IonTitle>Premiky</IonTitle>
           }
           {showSearchbar &&
             <IonSearchbar showCancelButton="always" placeholder="Search" onIonChange={(e: CustomEvent) => setSearchText(e.detail.value)} onIonCancel={() => setShowSearchbar(false)}></IonSearchbar>
@@ -110,7 +110,7 @@ const HomePage: React.FC<HomePageProps> = ({ businesses, setSearchText, mode }) 
       <IonContent fullscreen={true}>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Reserva2</IonTitle>
+            <IonTitle size="large">Premiky</IonTitle>
           </IonToolbar>
           <IonToolbar>
             <IonSearchbar placeholder="Search" onIonChange={(e: CustomEvent) => setSearchText(e.detail.value)}></IonSearchbar>

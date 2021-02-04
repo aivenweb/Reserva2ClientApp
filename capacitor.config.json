@@ -1,6 +1,6 @@
 {
-  "appId": "com.aiven.reserva2client",
-  "appName": "Reservados - Pide un Turno",
+  "appId": "com.aiven.premiky.client",
+  "appName": "Premiky - Pide un Turno",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
