@@ -65,7 +65,7 @@ const SessionListItem: React.FC<SessionListItemProps> = ({ business }) => {
         <IonCardContent>
           <IonGrid>
             <IonRow className="text-left">
-              {business.description}
+              {business.address}
             </IonRow>
             {/* <IonRow className="right">
               {listType === "favorites" ?

@@ -36,6 +36,9 @@
       background-repeat: no-repeat;
   
       transition: opacity 500ms ease-in-out;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 3%;
     }
 
     .business-detail-info {

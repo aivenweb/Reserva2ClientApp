@@ -1,7 +1,7 @@
 export interface Business {
     id: number;
     name: string;
-    description: string;
+    address: string;
     image: string;
     categories: string[];
   }

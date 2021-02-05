@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonHeader, IonToolbar, IonContent, IonPage, IonButtons, IonButton, IonIcon, IonList, IonItem, IonLabel, IonDatetime, IonMenuButton, IonPopover, IonSelect, IonSelectOption } from '@ionic/react';
+import { IonHeader, IonToolbar, IonContent, IonPage, IonButtons, IonButton, IonIcon, IonList, IonItem, IonLabel, IonDatetime, IonMenuButton, IonPopover, IonSelect, IonSelectOption, IonSlide, IonSlides } from '@ionic/react';
 import { connect } from '../data/connect';
 import { withRouter, RouteComponentProps } from 'react-router';
 import * as selectors from '../data/selectors';
@@ -25,7 +25,7 @@ type BusinessDetailProps = OwnProps & StateProps & DispatchProps;
 
 const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, favoriteSessions }) => {
 
-  
+
 
   const [showPopover, setShowPopover] = useState(false);
   const [popoverEvent, setPopoverEvent] = useState();
@@ -33,7 +33,7 @@ const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, favoriteSessi
   const [conferenceDate, setConferenceDate] = useState('2047-05-17T00:00:00-05:00');
 
   if (!business) {
-    return <div>Session not found</div>
+    return <div>Business not found</div>
   }
 
   const selectOptions = {
@@ -45,15 +45,11 @@ const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, favoriteSessi
     setShowPopover(true);
   };
 
-  // const isFavorite = favoriteSessions.indexOf(business.id) > -1;
-  
-  // const toggleFavorite = () => { 
-  //   isFavorite ? removeFavorite(business.id) : addFavorite(business.id);
-  // };
-  // const shareSession = () => { };
-  // const sessionClick = (text: string) => { 
-  //   console.log(`Clicked ${text}`);
-  // };
+  const slideOpts = {
+    slidesPerView: 'auto',
+    speed: 400,
+    loop: true
+  };
 
   // momentjs would be a better way to do this https://momentjs.com/
   function displayDate(date: string, format: string) {
@@ -88,21 +84,35 @@ const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, favoriteSessi
           </IonToolbar>
         </IonHeader>
 
-        <div className="business-detail-header">
-          {/* Instead of loading an image each time the select changes, use opacity to transition them */}
-          {/* <div className="about-image madison" style={{'opacity': location === 'madison' ? '1' : undefined}}></div>
-          <div className="about-image austin" style={{'opacity': location === 'austin' ? '1' : undefined}}></div>
-          <div className="about-image chicago" style={{'opacity': location === 'chicago' ? '1' : undefined}}></div>
-          <div className="about-image seattle" style={{'opacity': location === 'seattle' ? '1' : undefined}}></div> */}
-          <img src={business.image} className="business-detail-image" alt={`Portada de ${business.name}`}/>
-        </div>
+
+        <IonSlides pager={true} className="business-detail-header" options={slideOpts}>
+          <IonSlide>
+
+            <img src={business.image} className="business-detail-image" alt={`Portada de ${business.name}`} />
+
+          </IonSlide>
+          <IonSlide>
+
+            <img src={business.image} className="business-detail-image" alt={`Portada de ${business.name}`} />
+
+          </IonSlide>
+          <IonSlide >
+
+            <img src={business.image} className="business-detail-image" alt={`Portada de ${business.name}`} />
+
+          </IonSlide>
+        </IonSlides >
+
         <div className="business-detail-info">
-          <h3 className="ion-padding-top ion-padding-start">About</h3>
-
-          <p className="ion-padding-start ion-padding-end">
-            The Ionic Conference is a one-day conference on { displayDate(conferenceDate, 'mediumDate') } featuring talks from the Ionic team. It is focused on Ionic applications being built with Ionic Framework. This includes migrating apps to the latest version of the framework, Angular concepts, Webpack, Sass, and many other technologies used in Ionic 2. Tickets are completely sold out, and we’re expecting more than 1000 developers – making this the largest Ionic conference ever!
+          <h3 className="ion-padding-top ion-padding-start">{business.name}</h3>
+          <p className="ion-padding-start">
+            {business.address}
           </p>
-
+          <h3 className="ion-padding-top ion-padding-start">Descripción</h3>
+          <p className="ion-padding-start ion-padding-end">
+            The Ionic Conference is a one-day conference on {displayDate(conferenceDate, 'mediumDate')} featuring talks from the Ionic team. It is focused on Ionic applications being built with Ionic Framework. This includes migrating apps to the latest version of the framework, Angular concepts, Webpack, Sass, and many other technologies used in Ionic 2. Tickets are completely sold out, and we’re expecting more than 1000 developers – making this the largest Ionic conference ever!
+          </p>
+          
           <h3 className="ion-padding-top ion-padding-start">Details</h3>
 
           <IonList lines="none">
@@ -138,12 +148,12 @@ const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, favoriteSessi
                 Wifi network
               </IonLabel>
               <IonLabel className="ion-text-end">
-                ica{ displayDate(conferenceDate, 'y') }
+                ica{displayDate(conferenceDate, 'y')}
               </IonLabel>
             </IonItem>
             <IonItem>
               <IonLabel>
-               Password
+                Password
               </IonLabel>
               <IonLabel className="ion-text-end">
                 makegoodthings

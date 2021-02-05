@@ -2,7 +2,7 @@
   "businesses": [
     {
       "name": "Pelos Locos",
-      "description": "San Juan, 448, 4000, San Miguel de Tucumán",
+      "address": "San Juan, 448, 4000, San Miguel de Tucumán",
       "image": "https://ikosoftspain.com/blog/wp-content/uploads/2019/10/peluquer%C3%ADa_clientes_programa_merlin_ikosoft.png",
       "categories": [
         "Peluqueria"
@@ -11,7 +11,7 @@
     },
     {
       "name": "Pizza melos huevos",
-      "description": "Curapaligue 439, 1406, Ciudad de Buenos Aires",
+      "address": "Curapaligue 439, 1406, Ciudad de Buenos Aires",
       "image": "https://media-cdn.tripadvisor.com/media/photo-s/03/ab/c6/3a/benvenutto-pizza.jpg",
       "categories": [
         "Comida"
@@ -20,7 +20,7 @@
     },
     {
       "name": "Abri tu Garganta",
-      "description": "Gobernador Crespo, 2649, 3000, Santa Fe",
+      "address": "Gobernador Crespo, 2649, 3000, Santa Fe",
       "image": "https://ichef.bbci.co.uk/news/640/amz/worldservice/live/assets/images/2014/10/02/141002173846_sp_dentista_624x351_thinkstock.jpg",
       "categories": [
         "Dentista"
