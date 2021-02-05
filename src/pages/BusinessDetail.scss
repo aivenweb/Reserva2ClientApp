@@ -1,82 +1,90 @@
 #business-detail-page {
-    ion-toolbar {
-      position: absolute;
-  
-      top: 0;
-      left: 0;
-      right: 0;
-  
-      --background: transparent;
-      --color: white;
-    }
-  
-    ion-toolbar ion-back-button,
-    ion-toolbar ion-button,
-    ion-toolbar ion-menu-button {
-      --color: white;
-    }
-  
-    .business-detail-header {
-      position: relative;
-  
-      width: 100%;
-      height: 30%;
-    }
-  
-    .business-detail-header .business-detail-image {
-      position: absolute;
-  
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-  
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-  
-      transition: opacity 500ms ease-in-out;
-      width: 100%;
-      object-fit: cover;
-      border-radius: 3%;
-    }
+  ion-toolbar {
+    position: absolute;
 
-    .business-detail-info {
-      position: absolute;
-      margin-top: -10px;
-      border-radius: 10px;
-      background: var(--ion-background-color, #fff);
-    }
-  
-    .business-detail-info h3 {
-      margin-top: 0;
-    }
-  
-    .business-detail-info ion-list {
-      padding-top: 0;
-    }
-  
-    .business-detail-info p {
-      line-height: 130%;
-  
-      color: var(--ion-color-dark);
-    }
-  
-    .business-detail-info ion-icon {
-      margin-inline-end: 32px;
-    }
-  
-    /*
+    top: 0;
+    left: 0;
+    right: 0;
+
+    --background: transparent;
+    --color: white;
+  }
+
+  ion-content > super-tabs > super-tabs-toolbar{
+    --st-indicator-color: blueviolet;
+  }
+
+  ion-toolbar ion-back-button,
+  ion-toolbar ion-button,
+  ion-toolbar ion-menu-button {
+    --color: white;
+  }
+
+  .business-detail-header {
+    position: relative;
+
+    width: 100%;
+    height: 30%;
+  }
+
+  .business-detail-header .business-detail-image {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    transition: opacity 500ms ease-in-out;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 3%;
+  }
+
+  .business-detail-title {
+    margin-top: -10px;
+    border-radius: 10px;
+    background: var(--ion-background-color, #fff);
+  }
+
+  .business-detail-info {
+    position: absolute;
+    margin-top: -10px;
+    border-radius: 10px;
+    background: var(--ion-background-color, #fff);
+  }
+
+  .business-detail-info h3 {
+    margin-top: 0;
+  }
+
+  .business-detail-info ion-list {
+    padding-top: 0;
+  }
+
+  .business-detail-info p {
+    line-height: 130%;
+
+    color: var(--ion-color-dark);
+  }
+
+  .business-detail-info ion-icon {
+    margin-inline-end: 32px;
+  }
+
+  /*
      * iOS Only
      */
-  
-    .ios .business-detail-info {
-      --ion-padding: 19px;
-    }
-  
-    .ios .business-detail-info h3 {
-      font-weight: 700;
-    }
-  
+
+  .ios .business-detail-info {
+    --ion-padding: 19px;
   }
-  
+
+  .ios .business-detail-info h3 {
+    font-weight: 700;
+  }
+}
